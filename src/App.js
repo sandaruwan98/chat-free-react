@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="Appheader">
        
       </header>
       <section>
@@ -57,7 +57,31 @@ function SignOut() {
 }
 
 function ChatRoom() {
-  
+    const messageRef = firestore.collection('messages')
+    const query =  messageRef.orderBy('createdAt').limit(25)
+
+    const [messages] = useCollectionData( query ,{ idField: 'id' })
+
+
+    return (
+      <>
+      <div>
+        { messages && messages.map( msg => <ChatMessage key={msg.id} message={msg} /> ) }
+      </div>
+      </>
+    )
+}
+
+function ChatMessage(props) {
+  const { text, uid, photoURL } = props.message;
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'recieved'
+  return (
+    <div>
+      <img src={photoURL}/>
+      <p className={ "message " + messageClass } >{text}</p>
+
+    </div>
+  )
 }
 
 export default App;
