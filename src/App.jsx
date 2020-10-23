@@ -1,6 +1,6 @@
 import React,{ useRef, useState } from 'react';
 import './App.css';
-
+import ChatMessage from './components/ChatMessage'
 
 import  firebase from "firebase";
 import 'firebase/firestore'
@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <header>
-       
+        <SignOut />
       </header>
       <section>
         { user ? <ChatRoom/> : <SignIn/> }
@@ -61,7 +61,8 @@ function SignOut() {
 function ChatRoom() {
     const dummy = useRef()
     const messageRef = firestore.collection('messages')
-    const query =  messageRef.orderBy('createdAt').limit(25)
+    // const query =  messageRef.orderBy('createdAt').limit(25)
+    const query =  messageRef.orderBy('createdAt')
     const [messages] = useCollectionData( query ,{ idField: 'id' })
 
     const [formVal,setFormVal] = useState('')
@@ -84,14 +85,14 @@ function ChatRoom() {
     return (
       <>
       <div className="main">
-        { messages && messages.map( msg => <ChatMessage key={msg.id} message={msg} /> ) }
+        { messages && messages.map( msg => <ChatMessage key={msg.id} message={msg} currentUser={ auth.currentUser.uid} /> ) }
       
         <span ref={dummy}></span>
       </div>
       
       <form onSubmit={sendMessage} >
         <input value={formVal} onChange = { e => setFormVal(e.target.value) }/>
-        <button type="submit">🕊️</button>
+        <button type="submit">💨</button>
       </form>
       </>
     )
@@ -100,16 +101,5 @@ function ChatRoom() {
 
 
 
-function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message;
-  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'recieved'
-  return (
-    <div className={ "message " + messageClass }>
-      <img src={photoURL}/>
-      <p  >{text}</p>
-
-    </div>
-  )
-}
 
 export default App;
