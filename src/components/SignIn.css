@@ -1,0 +1,19 @@
+h3{
+    color: aliceblue;
+    font-size: 2.5em;
+}
+
+span{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(30, 139, 235);
+    font-size: 3.5em;
+    font-weight: 900;
+}
+
+button{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 30px;
+    height: 100px;
+    font-size: 2em;
+    font-weight: 900;
+}
