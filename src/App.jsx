@@ -1,31 +1,18 @@
-import React,{ useRef, useState } from 'react';
+import React from 'react';
 import './App.css';
-import ChatMessage from './components/ChatMessage'
-
+import ChatRoom from './components/ChatRoom'
 import  firebase from "firebase";
 import 'firebase/firestore'
 import 'firebase/auth'
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyAph0R-bqdHs6fbXKnbJMHqWTPrZuE5AE8",
-  authDomain: "chat-free-15915.firebaseapp.com",
-  databaseURL: "https://chat-free-15915.firebaseio.com",
-  projectId: "chat-free-15915",
-  storageBucket: "chat-free-15915.appspot.com",
-  messagingSenderId: "166015439326",
-  appId: "1:166015439326:web:5ca1ff50158307f9708d4f",
-  measurementId: "G-JYZ3X34R87"
-})
-
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+// const auth = firebase.auth();
+// const firestore = firebase.firestore();
 
 
 function App() {
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(firebase.auth())
 
   return (
     <div className="App">
@@ -42,7 +29,7 @@ function App() {
 function SignIn() {
   const signInWithGoogle = () =>{
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    firebase.auth().signInWithPopup(provider);
   }
   return (
     <button onClick={signInWithGoogle} >Sign In </button>
@@ -51,52 +38,12 @@ function SignIn() {
 
 function SignOut() {
  
-  return auth.currentUser && (
-    <button onClick={()=> auth.signOut()} >Sign Out </button>
+  return firebase.auth().currentUser && (
+    <button onClick={()=> firebase.auth().signOut()} >Sign Out </button>
   )
 }
 
 
-
-function ChatRoom() {
-    const dummy = useRef()
-    const messageRef = firestore.collection('messages')
-    // const query =  messageRef.orderBy('createdAt').limit(25)
-    const query =  messageRef.orderBy('createdAt')
-    const [messages] = useCollectionData( query ,{ idField: 'id' })
-
-    const [formVal,setFormVal] = useState('')
-
-   const sendMessage = async(e) => {
-      e.preventDefault()
-      const {uid , photoURL } = auth.currentUser;
-      
-
-      await messageRef.add({
-        text: formVal,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
-        photoURL
-      })
-      setFormVal('')
-      dummy.current.scrollIntoView( {behavior: 'smooth'} )
-   }
-
-    return (
-      <>
-      <div className="main">
-        { messages && messages.map( msg => <ChatMessage key={msg.id} message={msg} currentUser={ auth.currentUser.uid} /> ) }
-      
-        <span ref={dummy}></span>
-      </div>
-      
-      <form onSubmit={sendMessage} >
-        <input value={formVal} onChange = { e => setFormVal(e.target.value) }/>
-        <button type="submit">💨</button>
-      </form>
-      </>
-    )
-}
 
 
 
