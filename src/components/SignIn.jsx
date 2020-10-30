@@ -8,11 +8,11 @@ function SignIn() {
       firebase.auth().signInWithPopup(provider);
     }
     return (
-        <>
+        <div>
             <h3>Welcome to</h3>
             <span>CHAT-FREE</span>
             <button onClick={signInWithGoogle} >SIGN IN</button>
-        </>
+        </div>
     )
 
 }

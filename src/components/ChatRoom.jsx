@@ -15,6 +15,7 @@ function ChatRoom() {
   const [messages] = useCollectionData( query ,{ idField: 'id' })
 
   const [formVal,setFormVal] = useState('')
+  const [replyID,setReplyID] = useState('0')
 
  const sendMessage = async(e) => {
     e.preventDefault()
@@ -25,16 +26,22 @@ function ChatRoom() {
       text: formVal,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      replyID
     })
     setFormVal('')
     dummy.current.scrollIntoView( {behavior: 'smooth'} )
  }
 
+  function setReply(id) {
+    console.log(id);
+    setReplyID(id)
+  }
+
   return (
     <>
     <div className="main">
-      { messages && messages.map( msg => <ChatMessage key={msg.id} message={msg} currentUser={ firebase.auth().currentUser.uid} /> ) }
+      { messages && messages.map( msg => <ChatMessage key={msg.id} id={msg.id} message={msg} handlereply={setReply} currentUser={ firebase.auth().currentUser.uid} /> ) }
     
       <span ref={dummy}></span>
     </div>
