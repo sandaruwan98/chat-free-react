@@ -1,8 +1,10 @@
 import React from 'react';
+import  firebase from "firebase";
 
 function ChatMessage(props) {
     const { text, uid, photoURL,replyID  } = props.message;
-    const messageClass = uid === props.currentUser ? 'sent' : 'recieved'
+    // console.log(props.replyText);
+    const messageClass = uid === firebase.auth().currentUser.uid ? 'sent' : 'recieved'
     return (
       (replyID === '0') ? 
       <div onClick={  () => props.handlereply(props.id)} className={ "message " + messageClass }>
@@ -12,14 +14,14 @@ function ChatMessage(props) {
       :
       <>
      
-      <div onClick={  () => props.handlereply(props.id)} className={ "message " + messageClass } 
+      <div className={ "message " + messageClass } 
        style={{ marginTop: "25px" }} >
         <img src={photoURL}/>
-        <p  className="reply">{text}</p>
-        <p  >{text}</p>
+        <p  onClick={  () => props.handlereply(props.id)} >{text}</p>
+        <p  className={"reply-"+messageClass} >{ props.replyText }</p>
       </div>
       </>
     )
-  }
+}
 
 export default ChatMessage;

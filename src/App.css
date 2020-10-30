@@ -145,19 +145,29 @@ p {
 }
 
 .sent p {
+  min-width: 40px;
   color: white;
   background: #0b93f6;
   align-self: flex-end;
 }
 .recieved p {
-  background: #cfcfcf2a;
+  min-width: 40px;
+  background: #868686;
   color: rgb(255, 255, 255);
 }
 
-.reply{
+.reply-sent{
+  /* right: 15%; */
+  transform: translate(60%,-73%);
+  /* position: absolute; */
+  opacity: .5;
+  border-radius: 15px;
+}
+
+.reply-recieved{
   /* right: 15%; */
   transform: translate(-60%,-70%);
-  position: absolute;
+  /* position: absolute; */
   opacity: .5;
   border-radius: 15px;
 }

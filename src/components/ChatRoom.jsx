@@ -16,32 +16,58 @@ function ChatRoom() {
 
   const [formVal,setFormVal] = useState('')
   const [replyID,setReplyID] = useState('0')
+  const [reply,setReply] = useState('ff')
+  
 
  const sendMessage = async(e) => {
     e.preventDefault()
     const {uid , photoURL } = firebase.auth().currentUser;
-    
+    let f= '' 
+    messageRef.doc(replyID).get().then(snap => {
+      // console.log(replymsg.data().text);
+      setReply(snap.data().text);
+      console.log(snap.data().text);
+      console.log(reply);
+      console.log("get");
+    })
+
+    setReply("irrr")
+    console.log(reply);
 
     await messageRef.add({
       text: formVal,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
-      replyID
+      replyID,
+      reply
     })
     setFormVal('')
     dummy.current.scrollIntoView( {behavior: 'smooth'} )
  }
 
-  function setReply(id) {
+  function handleReplyId(id) {
     console.log(id);
     setReplyID(id)
   }
 
   return (
-    <>
+    < >
     <div className="main">
-      { messages && messages.map( msg => <ChatMessage key={msg.id} id={msg.id} message={msg} handlereply={setReply} currentUser={ firebase.auth().currentUser.uid} /> ) }
+      { messages && messages.map( msg => {
+          let replyTxt =  'bla bla';
+
+          // if (msg.replyID === '0') {
+          //    replyTxt =  '';
+          // }else{
+            
+            
+          // }
+          return <ChatMessage key={msg.id} id={msg.id} message={msg} replyText={replyTxt} handlereply={handleReplyId}  />
+          
+          
+        } ) 
+      }
     
       <span ref={dummy}></span>
     </div>
