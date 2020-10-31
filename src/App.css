@@ -126,14 +126,17 @@ ul, li {
 p {
   max-width: 500px;
   margin-bottom: 12px;
-  line-height: 24px;
-  padding: 10px 20px;
+  line-height: 17px;
+  padding: 7px 13px;
   border-radius: 25px;
   position: relative;
   color: white;
   text-align: center;
 }
+p:hover{
+  background: #1e1f20;
 
+}
 .message {
   display: flex;
   align-items: center;
