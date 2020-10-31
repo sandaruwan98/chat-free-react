@@ -16,7 +16,6 @@ function ChatRoom() {
 
   const [formVal,setFormVal] = useState('')
   const [replyID,setReplyID] = useState('0')
-  // const [reply,setReply] = useState('ff')
   
 
  const sendMessage = async(e) => {
