@@ -7,7 +7,7 @@ function ChatMessage(props) {
     const messageClass = uid === firebase.auth().currentUser.uid ? 'sent' : 'recieved'
     return (
       (replyText === '') ? 
-      <div onClick={  () => props.handlereply(text)} className={ "message " + messageClass }>
+      <div onDoubleClick={  () => props.handlereply(text)} className={ "message " + messageClass }>
         <img src={photoURL}/>
         <p  >{text}</p>
       </div>
@@ -19,7 +19,7 @@ function ChatMessage(props) {
         <img src={photoURL}/>
         <div className="with-reply">
           <p  className={"reply-"+messageClass} >{ replyText }</p>
-          <p   onClick={  () => props.handlereply(text)} >{text}</p>
+          <p   onDoubleClick={  () => props.handlereply(text)} >{text}</p>
         </div>
       </div>
       </>

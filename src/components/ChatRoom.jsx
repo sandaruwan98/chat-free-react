@@ -9,13 +9,15 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 function ChatRoom() {
   const dummy = useRef()
+
   const messageRef = firebase.firestore().collection('messages')
   // const query =  messageRef.orderBy('createdAt').limit(25)
   const query =  messageRef.orderBy('createdAt')
   const [messages] = useCollectionData( query ,{ idField: 'id' })
 
   const [formVal,setFormVal] = useState('')
-  const [replyText,setReplyText] = useState('0')
+  const [replyText,setReplyText] = useState('')
+  const [repHeightClass,setRepHeightClass] = useState('')
   
 
  const sendMessage = async(e) => {
@@ -38,15 +40,17 @@ function ChatRoom() {
       replyText: replyText
     })
     setFormVal('')
-    setReplyText('0')
-
+    setRepHeightClass('')
+    setReplyText('')
+    
     dummy.current.scrollIntoView( {behavior: 'smooth'} )
  }
 
   function handleReply(txt) {
    
     setReplyText(txt)
-    console.log(replyText);
+    setRepHeightClass('showrpl')
+    console.log(repHeightClass);
   }
 
   return (
@@ -61,7 +65,7 @@ function ChatRoom() {
     
       <span ref={dummy}></span>
     </div>
-    <div className="reply-popup">
+    <div onClick={() => {setRepHeightClass('');setReplyText('')  }} className={"reply-popup " + repHeightClass} >
     <p>{replyText}</p>
     </div>
 
