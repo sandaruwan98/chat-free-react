@@ -1,4 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Here's the demo deployed in heroku [CHAT-FREE App]( https://stormy-inlet-45287.herokuapp.com/)
+
+This  project is a chat portal created using React Js and FireBase
+In demo first signin with google and now you can chat freely
+To reply to a message you can double tap on message
+
+To run on localhost first,
+run:
+
+### `npm install`
+
+Then,
+
+### `npm start`
+
 
 ## Available Scripts
 
