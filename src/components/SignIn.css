@@ -1,11 +1,29 @@
-h3{
+.signin {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.signin  h3{
     color: aliceblue;
     font-size: 2.5em;
 }
 
-span{
+.signin span{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(30, 139, 235);
     font-size: 3.5em;
     font-weight: 900;
+}
+
+.signin button{
+    margin: auto;
+    margin-top: 20px;
+    width: 50%;
+}
+
+.signin p{
+    margin: auto;
+    margin-top: 30px;
 }

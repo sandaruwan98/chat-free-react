@@ -13,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <header>
+        <h1>CHAT-FREE</h1>
         <SignOut />
       </header>
       <section>
